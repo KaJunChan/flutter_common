@@ -12,6 +12,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  json_serializable: ^3.5.0
+
+  build_runner: ^1.0.0
+
+  dio: 3.0.10
+
+  shared_preferences: ^0.5.12
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
