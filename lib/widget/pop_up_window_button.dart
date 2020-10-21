@@ -5,7 +5,8 @@ const int _windowPopupDuration = 300;
 const double _kWindowCloseIntervalEnd = 2.0 / 3.0;
 const Duration _kWindowDuration = Duration(milliseconds: _windowPopupDuration);
 
-typedef AnimatedWidgetBuilder = Widget Function(Widget child, Animation<double> animation, Animation<double> secondaryAnimation);
+typedef AnimatedWidgetBuilder = Widget Function(
+    Widget child, Animation<double> animation, Animation<double> secondaryAnimation);
 
 class PopupWindowButton<T> extends StatefulWidget {
   const PopupWindowButton({
@@ -61,7 +62,15 @@ void showWindow<T>({
 }) {
   Navigator.push(
     context,
-    _PopupWindowRoute<T>(position: position, child: window, elevation: elevation, duration: duration, semanticLabel: semanticLabel, barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel, type: type, builder: builder),
+    _PopupWindowRoute<T>(
+        position: position,
+        child: window,
+        elevation: elevation,
+        duration: duration,
+        semanticLabel: semanticLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        type: type,
+        builder: builder),
   );
 }
 
@@ -77,7 +86,14 @@ class _PopupWindowButtonState<T> extends State<PopupWindowButton> {
       Offset.zero & overlay.size,
     );
 
-    showWindow<T>(context: context, window: widget.window, position: position, duration: widget.duration, elevation: widget.elevation, type: widget.type, builder: widget.builder);
+    showWindow<T>(
+        context: context,
+        window: widget.window,
+        position: position,
+        duration: widget.duration,
+        elevation: widget.elevation,
+        type: widget.type,
+        builder: widget.builder);
   }
 
   @override
@@ -104,7 +120,10 @@ class _PopupWindowRoute<T> extends PopupRoute<T> {
 
   @override
   Animation<double> createAnimation() {
-    return CurvedAnimation(parent: super.createAnimation(), curve: Curves.linear, reverseCurve: const Interval(0.0, _kWindowCloseIntervalEnd));
+    return CurvedAnimation(
+        parent: super.createAnimation(),
+        curve: Curves.linear,
+        reverseCurve: const Interval(0.0, _kWindowCloseIntervalEnd));
   }
 
   final RelativeRect position;
@@ -134,7 +153,10 @@ class _PopupWindowRoute<T> extends PopupRoute<T> {
         return CustomSingleChildLayout(
           delegate: _PopupWindowLayout(position),
           child: AnimatedBuilder(
-              child: child,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: child,
+              ),
               animation: animation,
               builder: (BuildContext context, Widget child) {
                 return builder == null
