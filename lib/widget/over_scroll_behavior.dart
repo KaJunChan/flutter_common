@@ -27,6 +27,6 @@ class OverScrollBehavior extends ScrollBehavior {
         // TODO: Handle this case.
         break;
     }
-    return null;
+    return Container();
   }
 }
